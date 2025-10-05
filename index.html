@@ -5,82 +5,82 @@
 <title>站长千叶免费提供在线观看服务</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
+/* ===== 基础 & 动画变量 ===== */
 :root{
-  --primary:#ff0033;
-  --primary-light:#ff5566;
-  --bg:#0a0a0a;
-  --surface:#1a1a1a;
-  --line:#333;
-  --text:#fff;
-  --sub:#aaa;
-  --radius:12px;
-  --transition:.45s cubic-bezier(.4,0,.2,1);
-  --bottom-safe:56px;
+  --accent:#ff0033;
+  --duration:.35s;
+  --ease:cubic-bezier(.4,0,.2,1);
 }
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:"Microsoft JhengHei","Helvetica Neue",sans-serif;background:var(--bg);color:var(--text);height:100%;overflow-x:hidden}
+*{box-sizing:border-box;}
+html,body{margin:0;height:100%;background:#000;font-family:"Microsoft JhengHei",sans-serif;-webkit-font-smoothing:antialiased;}
+/* 通用过渡 */
+#ageGate,#platform,.video-card,.ad-card,.btn,.searchInput,.searchBtn,.bottomAd{
+  transition:all var(--duration) var(--ease);
+}
 
 /* ===== 年龄门 ===== */
-#ageGate{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.98);display:flex;align-items:flex-start;justify-content:center;padding-top:6vh;opacity:1;transform:scale(1);transition:opacity var(--transition),transform var(--transition)}
-#ageGate.hide{opacity:0;transform:scale(1.05);pointer-events:none}
-.container{width:90%;max-width:460px;text-align:center}
-.compliance{background:var(--surface);border-left:4px solid var(--primary);color:var(--sub);font-size:12px;padding:10px;text-align:left;margin-bottom:14px;border-radius:0 var(--radius) var(--radius) 0}
-.badge{width:80px;height:80px;margin:0 auto 10px;background:var(--primary);color:#fff;font-size:40px;font-weight:bold;line-height:80px;border-radius:50%;box-shadow:0 0 24px var(--primary);animation:pulse 1.4s infinite}
-@keyframes pulse{0%,100%{box-shadow:0 0 10px var(--primary)}50%{box-shadow:0 0 30px var(--primary)}}
-h1{font-size:20px;margin-bottom:4px}
-.sub{color:var(--sub);font-size:13px;margin-bottom:8px}
-.legal{color:#ccc;font-size:11px;line-height:1.55;text-align:justify;margin-bottom:16px}
-.btnGroup{display:flex;gap:14px;justify-content:center}
-.btn{width:112px;padding:9px 0;font-size:13px;border-radius:20px;cursor:pointer;border:none;transition:background var(--transition),transform var(--transition)}
-.btn:hover{transform:translateY(-2px)}
-.exit{background:transparent;color:var(--text);border:1px solid var(--text)}
-.enter{background:var(--primary);color:#fff;box-shadow:0 0 20px var(--primary)}
+#ageGate{position:fixed;inset:0;background:rgba(0,0,0,.98);z-index:9999;display:flex;align-items:flex-start;justify-content:center;padding-top:6vh;opacity:0;transform:translateY(20px);animation:fadeIn .6s forwards;}
+@keyframes fadeIn{to{opacity:1;transform:translateY(0);}}
+.container{width:90%;max-width:460px;text-align:center;}
+.compliance{background:#1a1a1a;border-left:4px solid var(--accent);color:#aaa;font-size:12px;padding:8px;text-align:left;margin-bottom:10px;opacity:0;animation:fadeIn .8s .2s forwards;}
+.badge{width:75px;height:75px;margin:0 auto 6px;background:var(--accent);color:#fff;font-size:38px;font-weight:bold;line-height:75px;border-radius:50%;box-shadow:0 0 20px var(--accent);opacity:0;animation:fadeIn .8s .3s forwards, pulse 2s infinite 1s;}
+@keyframes pulse{50%{box-shadow:0 0 30px var(--accent);}}
+h1{font-size:18px;color:#fff;margin:0 0 4px;opacity:0;animation:fadeIn .8s .4s forwards;}
+.sub{color:#999;font-size:12px;margin-bottom:6px;opacity:0;animation:fadeIn .8s .5s forwards;}
+.legal{color:#ccc;font-size:11px;line-height:1.5;margin:0 4px 10px;text-align:justify;opacity:0;animation:fadeIn .8s .6s forwards;}
+.btnGroup{display:flex;gap:15px;justify-content:center;margin-top:10px;opacity:0;animation:fadeIn .8s .7s forwards;}
+.btn{width:110px;padding:8px 0;font-size:13px;border-radius:20px;cursor:pointer;border:none;transform:scale(1);}
+.btn:hover{transform:scale(1.05);}
+.exit{background:transparent;color:#fff;border:1px solid #fff;}
+.enter{background:var(--accent);color:#fff;box-shadow:0 0 15px var(--accent);}
 
 /* ===== 平台页 ===== */
-#platform{display:none;opacity:0;transform:translateY(20px);animation:fadeIn .6s forwards}
-@keyframes fadeIn{to{opacity:1;transform:translateY(0)}}
-header{background:#000;padding:12px;text-align:center;font-size:18px;color:var(--primary);border-bottom:2px solid var(--primary);letter-spacing:1px}
-.searchBar{margin:12px 15px;display:flex}
-.searchInput{flex:1;padding:8px 14px;border:1px solid var(--line);border-radius:var(--radius) 0 0 var(--radius);background:#111;color:var(--text);font-size:14px;transition:border-color var(--transition)}
-.searchInput:focus{outline:none;border-color:var(--primary)}
-.searchBtn{width:64px;border:1px solid var(--line);border-left:none;border-radius:0 var(--radius) var(--radius) 0;background:var(--primary);color:#fff;font-size:14px;cursor:pointer;transition:background var(--transition)}
-.searchBtn:hover{background:var(--primary-light)}
-.sectionTitle{color:var(--text);font-size:16px;margin:12px 15px 8px;font-weight:600}
-.video-grid{display:flex;flex-wrap:wrap;gap:10px;padding:0 15px calc(var(--bottom-safe) + 60px)}
-
-/* 卡片骨架 + 真实加载动画（视频&广告完全同款） */
-.video-card,.ad-card{width:calc(50% - 5px);position:relative;transform:scale(1);transition:transform var(--transition),box-shadow var(--transition);cursor:pointer}
-.video-card:hover,.ad-card:hover{transform:scale(1.03);box-shadow:0 0 24px rgba(255,0,51,.4)}
-.img-box{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:var(--radius) var(--radius) 0 0}
-.skeleton{position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,0) 0%, rgba(255,255,255,.06) 50%, rgba(255,255,255,0) 100%),var(--surface);background-size:200% 100%;animation:shimmer 1.6s infinite linear}
-@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-.real-img{width:100%;height:100%;object-fit:cover;filter:blur(8px);opacity:0;transition:filter var(--transition),opacity var(--transition)}
-.real-img.loaded{filter:blur(0);opacity:1}
-.playIco{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(1);width:40px;height:40px;background:rgba(255,255,255,.9);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform var(--transition);pointer-events:none}
-.playIco::after{content:"▶";color:#000;font-size:18px}
-.video-card:hover .playIco,.ad-card:hover .playIco{transform:translate(-50%,-50%) scale(1.15)}
-.info{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,.8),transparent);padding:6px 8px}
-.title{font-size:12px;height:28px;overflow:hidden;color:var(--text)}
-.meta{font-size:10px;color:var(--sub);display:flex;justify-content:space-between;margin-top:2px}
-.ad-label{position:absolute;top:6px;right:6px;background:var(--primary);color:#fff;font-size:9px;padding:3px 7px;border-radius:3px;z-index:2}
-.ad-title{font-size:12px;height:28px;overflow:hidden;color:#ffcc00;font-weight:700}
-.ad-meta{font-size:10px;color:#ff9999;display:flex;justify-content:space-between;margin-top:2px}
-
-/* ===== 底部悬浮广告（永远可见）===== */
-.bottomAd{
-  position:fixed;
-  left:50%;bottom:var(--bottom-safe);
-  transform:translateX(-50%);
-  background:linear-gradient(90deg,var(--primary),#ff5500);
-  color:#fff;padding:8px 14px;border-radius:20px;font-size:12px;
-  box-shadow:0 0 20px rgba(255,0,51,.45);z-index:9999;
-  animation:float 3s ease-in-out infinite;
-  transition:transform .3s;
+#platform{opacity:0;transform:translateY(20px);}
+#platform.active{opacity:1;transform:translateY(0);}
+header{background:#000;padding:12px;text-align:center;font-size:18px;color:var(--accent);border-bottom:2px solid var(--accent);letter-spacing:1px;}
+.searchBar{margin:12px 15px;display:flex;}
+.searchInput{flex:1;padding:8px 12px;border:1px solid #333;border-radius:15px 0 0 15px;background:#111;color:#fff;font-size:13px;outline:none;}
+.searchInput:focus{border-color:var(--accent);box-shadow:0 0 10px rgba(255,0,51,.35);}
+.searchBtn{width:60px;border:1px solid #333;border-left:none;border-radius:0 15px 15px 0;background:var(--accent);color:#fff;font-size:13px;cursor:pointer;}
+.sectionTitle{color:#fff;font-size:15px;margin:12px 15px 6px;}
+.video-grid{display:flex;flex-wrap:wrap;gap:8px;padding:0 15px;}
+.video-card,.ad-card{
+  width:calc(50% - 4px);
+  background:#1a1a1a;
+  border:1px solid #333;
+  border-radius:6px;
+  overflow:hidden;
+  cursor:pointer;
+  position:relative;
+  transform-style:preserve-3d;
+  transform:perspective(1000px) rotateY(0) rotateX(0);
+  opacity:0;
+  animation:popIn .5s forwards;
 }
-.bottomAd:hover{transform:translateX(-50%) scale(1.05)}
-@keyframes float{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-4px)}}
-.closeAd{background:#fff;color:var(--primary);border:none;padding:4px 8px;border-radius:8px;margin-left:8px;cursor:pointer;font-weight:bold;transition:background .2s}
-.closeAd:hover{background:#ffe0e0}
+.video-card:nth-child(1){animation-delay:.05s;}
+.video-card:nth-child(2){animation-delay:.1s;}
+.video-card:nth-child(3){animation-delay:.15s;}
+.video-card:nth-child(4){animation-delay:.2s;}
+.video-card:nth-child(5){animation-delay:.25s;}
+.ad-card{animation-delay:.3s;}
+@keyframes popIn{to{opacity:1;transform:perspective(1000px) rotateY(0) rotateX(0) scale(1);}}
+.video-card:hover,.ad-card:hover{transform:perspective(1000px) rotateY(2deg) rotateX(-2deg) scale(1.03);box-shadow:0 10px 20px rgba(255,0,51,.25);}
+.cover{width:100%;aspect-ratio:16/9;object-fit:cover;background:#222;display:block;}
+.ad-cover{width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,var(--accent),#990000);display:flex;align-items:center;justify-content:center;color:#fff;font-size:24px;font-weight:bold;text-shadow:0 0 10px rgba(0,0,0,.7);}
+.playIco{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(1);width:36px;height:36px;background:rgba(255,255,255,.9);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform var(--duration);}
+.playIco::after{content:"▶";color:#000;font-size:16px;}
+.video-card:hover .playIco,.ad-card:hover .playIco{transform:translate(-50%,-50%) scale(1.15);}
+.info{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,.8),transparent);padding:5px;}
+.title{font-size:11px;height:24px;overflow:hidden;color:#fff;}
+.ad-title{font-size:11px;height:24px;overflow:hidden;color:#ffcc00;font-weight:bold;}
+.meta{font-size:9px;color:#aaa;display:flex;justify-content:space-between;margin-top:1px;}
+.ad-meta{font-size:9px;color:#ff9999;display:flex;justify-content:space-between;margin-top:1px;}
+.ad-label{position:absolute;top:5px;right:5px;background:var(--accent);color:#fff;font-size:9px;padding:2px 6px;border-radius:3px;z-index:2;}
+
+/* 底部广告 */
+.bottomAd{position:fixed;bottom:-60px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,var(--accent),#ff5500);color:#fff;padding:8px 14px;border-radius:20px;font-size:11px;box-shadow:0 0 10px rgba(255,0,51,.5);z-index:999;display:flex;align-items:center;gap:6px;}
+.bottomAd.show{bottom:15px;}
+.closeAd{background:#fff;color:var(--accent);border:none;padding:3px 7px;border-radius:50%;cursor:pointer;font-weight:bold;line-height:1;}
 </style>
 </head>
 <body>
@@ -88,98 +88,127 @@ header{background:#000;padding:12px;text-align:center;font-size:18px;color:var(-
 <!-- ===== 年龄门 ===== -->
 <div id="ageGate">
   <div class="container">
-    <div class="compliance">This site contains adult-oriented material and is intended for individuals 18 years of age or older. If you are not yet 18, you must leave immediately.</div>
+    <div class="compliance">
+      This site contains adult-oriented material and is intended for individuals 18 years of age or older. If you are not yet 18, you must leave immediately.
+    </div>
     <div class="badge">18+</div>
     <h1>ADULTS ONLY</h1>
     <p class="sub">本網站僅允許18歲及以上人士觀看</p>
-    <div class="legal"><b>法律聲明：</b>進入本網站即表示您已滿18歲，並同意承擔一切法律責任。您也理解本站可能含有裸露、性暗示或其他成人內容。若您未達法定年齡，或此類內容在您的地區屬非法，請立即離開。</div>
-    <div class="btnGroup"><button class="btn exit" onclick="leaveSite()">離開 / EXIT</button><button class="btn enter" onclick="enterSite()">進入 / ENTER</button></div>
+    <div class="legal">
+      <b>法律聲明：</b>進入本網站即表示您已滿18歲，並同意承擔一切法律責任。您也理解本站可能含有裸露、性暗示或其他成人內容。若您未達法定年齡，或此類內容在您的地區屬非法，請立即離開。
+    </div>
+    <div class="btnGroup">
+      <button class="btn exit" data-action="leave">離開 / EXIT</button>
+      <button class="btn enter" data-action="enter">進入 / ENTER</button>
+    </div>
   </div>
 </div>
 
 <!-- ===== 平台页 ===== -->
 <div id="platform">
   <header>Do you like van♂游戏🔞</header>
-  <div class="searchBar"><input class="searchInput" placeholder="搜索视频..."><button class="searchBtn" onclick="location.replace(rickURL)">搜索</button></div>
+  <div class="searchBar">
+    <input class="searchInput" placeholder="搜索视频...">
+    <button class="searchBtn" data-action="search">搜索</button>
+  </div>
   <div class="sectionTitle">动漫同人</div>
   <div class="video-grid" id="动漫"></div>
-  <div class="bottomAd" id="bottomAd">🔥 今夜限時免費 · 註冊送999金幣<button onclick="location.replace(rickURL)">立即進入</button><button class="closeAd" onclick="this.parentElement.style.display='none'">×</button></div>
+  <div class="bottomAd" id="bottomAd">
+    <span>🔥 今夜限時免費 · 註冊送999金幣</span>
+    <button data-action="adGo">立即進入</button>
+    <button class="closeAd" data-action="adClose">×</button>
+  </div>
 </div>
 
 <script>
-const rickURL = "https://cn-hnzz-cm-01-03.bilivideo.com/upgcxcode/99/91/137649199/137649199_da2-1-16.mp4?e=ig8euxZM2rNcNbRVhwdVhwdlhWdVhwdVhoNvNC8BqJIzNbfq9rVEuxTEnE8L5F6VnEsSTx0vkX8fqJeYTj_lta53NCM=&mid=0&uipk=5&deadline=1759644013&platform=html5&oi=0x24098d303001015fbd6e990602a8f4d3&nbs=1&trid=00001dd72d545a894b2cbb23e724ba5c693h&gen=playurlv3&os=bcache&og=hw&upsig=0ac585f72bca8049b6012cafc330356a&uparams=e,mid,uipk,deadline,platform,oi,nbs,trid,gen,os,og&cdnid=5367&bvc=vod&nettype=0&bw=396834&lrs=49&buvid=&build=0&dl=0&f=h_0_0&agrr=0&orderid=0,1";
+const rickURL = "https://vdse.bdstatic.com//192d9a98d782d9c74c96f09db9378d93.mp4
+https://vdse.bdstatic.com//192d9a98d782d9c74c96f09db9378d93.mp4";
 
-function leaveSite(){try{window.open("about:blank","_self");window.close()}catch(e){} setTimeout(()=>location.href="about:blank",100);}
+/* 统一事件委托 */
+document.body.addEventListener("click",e=>{
+  const action = e.target.dataset.action;
+  if(!action)return;
+  switch(action){
+    case "leave": leaveSite(); break;
+    case "enter": enterSite(); break;
+    case "search":
+    case "adGo":  animateThenGo(rickURL); break;
+    case "adClose": document.getElementById("bottomAd").classList.remove("show"); break;
+  }
+});
+
+function leaveSite(){
+  window.open("about:blank","_self");
+  window.close();
+  setTimeout(()=>location.replace("about:blank"),100);
+}
 function enterSite(){
-  const gate=document.getElementById('ageGate');
-  gate.classList.add('hide');
+  const gate = document.getElementById("ageGate");
+  const plat = document.getElementById("platform");
+  gate.style.transition="opacity .4s, transform .4s";
+  gate.style.opacity=0;
+  gate.style.transform="translateY(-20px)";
   setTimeout(()=>{
-    gate.style.display='none';
-    document.getElementById('platform').style.display='block';
+    gate.style.display="none";
+    plat.style.display="block";
+    setTimeout(()=>plat.classList.add("active"),10);
     loadAll();
-  },450);
+    setTimeout(()=>document.getElementById("bottomAd").classList.add("show"),800);
+  },400);
 }
 
-/* ===== 生成卡片 ===== */
+/* 点击后先缩小再跳转，避免突兀 */
+function animateThenGo(url){
+  const card = event.currentTarget;
+  card.style.transform+=" scale(.96)";
+  card.style.opacity=.8;
+  setTimeout(()=>location.replace(url),200);
+}
+
+/* 加载卡片 */
+const videoPool = ["BV1GJ411x7h7","BV1EK411H7Ln","BV1sE411p7Yx","BV1yK411x7ct","BV1Mb411e7Hk","BV1qf4y1x7mX","BV1b34y1X7dQ","BV1aK4y1C7Bz","BV1F54y1G7iW","BV1H64y1T7Kj","BV1C44y1q7KL"];
 function loadAll(){
-  const grid=document.getElementById('动漫');
+  const grid = document.getElementById('动漫');
   for(let i=0;i<11;i++){
-    const card=document.createElement('div');
+    const card = document.createElement('div');
     card.className='video-card';
+    card.dataset.url=rickURL;
     card.innerHTML=`
-      <div class="img-box">
-        <div class="skeleton"></div>
-        <img class="real-img" src="https://acg.yaohud.cn/R18/setu.php?return=img&${Date.now()+i}" alt="cover">
-        <div class="playIco"></div>
-      </div>
+      <img class="cover" src="https://acg.yaohud.cn/R18/setu.php?return=img&${Date.now()+i}" alt="cover">
+      <div class="playIco"></div>
       <div class="info">
         <div class="title">【18+】动漫同人·限定-${i+1}</div>
-        <div class="meta"><span>▶ ${(Math.random()*900+100).toFixed(0)}萬</span><span>${(Math.random()*59+1).toFixed(0)}分前</span></div>
-      </div>`;
-    card.onclick=()=>location.replace(rickURL);
-    grid.appendChild(card);
-
-    /* 和第 5 张后插入广告（真 img，同链路，同动画） */
-    if(i===4){
-      const ad=document.createElement('div');
-      ad.className='ad-card';
-      ad.innerHTML=`
-        <div class="img-box">
-          <div class="skeleton"></div>
-          <img class="real-img" src="https://acg.yaohud.cn/R18/setu.php?return=img&${Date.now()+999}" alt="ad">
-          <div class="playIco"></div>
+        <div class="meta">
+          <span>▶ ${Math.floor(Math.random()*900+100)}萬</span>
+          <span>${Math.floor(Math.random()*59+1)}分前</span>
         </div>
+      </div>`;
+    grid.appendChild(card);
+    if(i===4){
+      const ad = document.createElement('div');
+      ad.className='ad-card';
+      ad.dataset.url=rickURL;
+      ad.innerHTML=`
+        <div class="ad-label">廣告</div>
+        <div class="ad-cover">VIP 專享</div>
+        <div class="playIco"></div>
         <div class="info">
           <div class="ad-title">🔥 今夜限時免費 · 註冊送999金幣</div>
-          <div class="ad-meta"><span>▶ 限時特惠</span><span>立即進入</span></div>
+          <div class="ad-meta">
+            <span>▶ 限時特惠</span>
+            <span>立即進入</span>
+          </div>
         </div>`;
-      ad.onclick=()=>location.replace(rickURL);
       grid.appendChild(ad);
     }
   }
-  watchImages();
-}
-
-/* ===== 统一加载监听 ===== */
-function watchImages(){
-  const imgs=document.querySelectorAll('.real-img');
-  imgs.forEach(img => {
-    if(img.complete){ // 已缓存
-      img.classList.add('loaded');
-      if(img.previousElementSibling?.classList.contains('skeleton')) img.previousElementSibling.style.display='none';
-      return;
-    }
-    img.onload=()=>{
-      img.classList.add('loaded');
-      if(img.previousElementSibling?.classList.contains('skeleton')) img.previousElementSibling.style.display='none';
-    };
-    img.onerror=()=>{
-      img.classList.add('loaded');
-      if(img.previousElementSibling?.classList.contains('skeleton')) img.previousElementSibling.style.display='none';
-    };
+  /* 卡片点击 */
+  grid.addEventListener("click",e=>{
+    const card = e.target.closest(".video-card, .ad-card");
+    if(!card)return;
+    animateThenGo(card.dataset.url);
   });
 }
 </script>
 </body>
 </html>
-
