@@ -107,7 +107,10 @@ header{background:#000;padding:12px;text-align:center;font-size:18px;color:var(-
 <script>
 const rickURL = "https://vdse.bdstatic.com//192d9a98d782d9c74c96f09db9378d93.mp4";
 
-function leaveSite(){try{window.open("about:blank","_self");window.close()}catch(e){} setTimeout(()=>location.href="about:blank",100);}
+function leaveSite(){
+  location.href = "https://image.anosu.top/pixiv/direct?r18=1";
+}
+
 function enterSite(){
   const gate=document.getElementById('ageGate');
   gate.classList.add('hide');
